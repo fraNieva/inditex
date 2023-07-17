@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 
+const baseUrl = `https://corsproxy.io/?${encodeURIComponent('https://itunes.apple.com')}`;
+
 // Create our baseQuery instance
 const baseQuery = fetchBaseQuery({
-	baseUrl: `https://api.allorigins.win/get?url=${encodeURIComponent(
-		'https://itunes.apple.com/us'
-	)}`,
+	baseUrl: baseUrl,
 	/*   prepareHeaders: (headers, { getState }) => {
     // By default, if we have a token in the store, let's use that for authenticated requests
     const token = (getState() as RootState).auth.token
@@ -40,7 +40,7 @@ export const api = createApi({
 	 * Tag types must be defined in the original API definition
 	 * for any tags that would be provided by injected endpoints
 	 */
-	tagTypes: ['Podcasts'],
+	tagTypes: ['Podcasts', 'Episodes'],
 	/**
 	 * This api has endpoints injected in adjacent files,
 	 * which is why no endpoints are shown below.
