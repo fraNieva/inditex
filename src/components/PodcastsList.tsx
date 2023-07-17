@@ -1,6 +1,6 @@
 import React from 'react';
 import { useGetPodcastsQuery } from '../app/services/podcasts';
-import { Link } from 'react-router-dom';
+import PodcastCard from './PodcastCard';
 
 const PodcastsList = () => {
 	const { data, isLoading, isSuccess, isError, error } = useGetPodcastsQuery();
@@ -27,12 +27,8 @@ const PodcastsList = () => {
 	if (isSuccess) {
 		content = (
 			<div>
-				{data.map((podcast) => {
-					return (
-						<p>
-							<Link to={`/podcast/${podcast.id}`}>{podcast['im:name'].label}</Link>
-						</p>
-					);
+				{data.ids.map((podcastId) => {
+					return <PodcastCard key={podcastId} podcastId={podcastId} />;
 				})}
 			</div>
 		);
