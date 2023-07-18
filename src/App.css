@@ -1,6 +1,7 @@
 html {
 	--main: #466c9c;
 	--white: #ffffff;
+	--font-primary: #111;
 }
 
 * > * {

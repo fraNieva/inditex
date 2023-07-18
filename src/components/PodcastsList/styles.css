@@ -1,0 +1,6 @@
+.podcasts-list__container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	padding-top: 12rem;
+}

@@ -16,9 +16,9 @@ const Layout = () => {
 				</Link>
 				{isSomeQueryPending && <Spinner />}
 			</header>
-			<div>
+			<main className="main">
 				<Outlet />
-			</div>
+			</main>
 		</>
 	);
 };

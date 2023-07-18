@@ -1,6 +1,6 @@
-import React from 'react';
-import { useGetPodcastsQuery } from '../app/services/podcasts';
-import PodcastCard from './PodcastCard';
+import { useGetPodcastsQuery } from '../../app/services/podcasts';
+import PodcastCard from '../PodcastCard/PodcastCard';
+import './styles.css';
 
 const PodcastsList = () => {
 	const { data, isLoading, isSuccess, isError, error } = useGetPodcastsQuery();
@@ -26,11 +26,11 @@ const PodcastsList = () => {
 
 	if (isSuccess) {
 		content = (
-			<div>
+			<section className="podcasts-list__container">
 				{data.ids.map((podcastId) => {
 					return <PodcastCard key={podcastId} podcastId={podcastId} />;
 				})}
-			</div>
+			</section>
 		);
 	}
 
