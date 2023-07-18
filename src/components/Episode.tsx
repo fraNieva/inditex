@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { EpisodeProps, useGetEpisodesQuery } from '../app/services/episodes';
 import { selectAllPodcasts } from '../app/services/podcasts';
 import { useSelector } from 'react-redux';
+import parse from 'html-react-parser';
 
 const Episode = () => {
 	const { id, episodeId } = useParams();
@@ -60,7 +61,7 @@ const Episode = () => {
 					<div>
 						<h2>{trackName}</h2>
 						<em>
-							<p>{description}</p>
+							<p>{description && parse(description)}</p>
 						</em>
 						<audio
 							typeof="audio/mp3"
