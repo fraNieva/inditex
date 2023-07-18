@@ -15,7 +15,6 @@ const Layout = () => {
 					<h1>Podcaster</h1>
 				</Link>
 				{isSomeQueryPending && <Spinner />}
-				<Spinner />
 			</header>
 			<div>
 				<Outlet />
