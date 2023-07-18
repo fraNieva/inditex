@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { EpisodeProps, useGetEpisodesQuery } from '../app/services/episodes';
-import { selectAllPodcasts } from '../app/services/podcasts';
+import { useParams } from 'react-router-dom';
+import { EpisodeProps, useGetEpisodesQuery } from '../../app/services/episodes';
+import { selectAllPodcasts } from '../../app/services/podcasts';
 import { useSelector } from 'react-redux';
 import parse from 'html-react-parser';
+import PodcastDetail from '../PodcastDetail/PodcastDetail';
+import './styles.css';
 
 const Episode = () => {
 	const { id, episodeId } = useParams();
@@ -39,31 +41,21 @@ const Episode = () => {
 			content = <div>{error.message}</div>;
 		}
 	}
-	if (isSuccess && episodeId && data) {
-		console.log(episodeId);
-		console.log(data);
+	if (isSuccess && episodeId && data && podcast && id) {
 		const episodeIdNumber = data.ids.filter((id) => episodeId === data.entities[id]?.slug)[0];
-		console.log('episodeIdNumber :>> ', episodeIdNumber);
 		const { description, trackName, episodeUrl } = data.entities[episodeIdNumber] as EpisodeProps;
 
 		content = (
-			<>
-				<aside>
-					<Link to={`/podcast/${id}`}>
-						<img src={podcast?.['im:image'].at(-1)?.label} alt={podcast?.['im:name'].label} />
-						<p>{podcast?.['im:name'].label}</p>
-						<p>by {podcast?.['im:artist'].label}</p>
-						<p>Description</p>
-						<p>{podcast?.summary.label}</p>
-					</Link>
-				</aside>
-				<section>
-					<div>
-						<h2>{trackName}</h2>
+			<div className="episode__container">
+				<PodcastDetail podcast={podcast} id={id} />
+				<section className="episode__section">
+					<div className="episode__information-container">
+						<h2 className="episode__information-title">{trackName}</h2>
 						<em>
 							<p>{description && parse(description)}</p>
 						</em>
 						<audio
+							className="episode__information-audio"
 							typeof="audio/mp3"
 							aria-label={`audio:${trackName}`}
 							src={episodeUrl}
@@ -72,7 +64,7 @@ const Episode = () => {
 						></audio>
 					</div>
 				</section>
-			</>
+			</div>
 		);
 	}
 

@@ -1,0 +1,25 @@
+.episode__container {
+	display: flex;
+	flex-wrap: nowrap;
+	margin: 0 -1rem;
+}
+
+.episode__section {
+	margin: 1rem;
+	width: 100%;
+}
+
+.episode__information-container {
+	border-radius: 4px;
+	box-shadow: 0px 1px 4px 1px var(--shadow-color);
+	padding: 1rem;
+}
+
+.episode__information-title {
+	margin-bottom: 1rem;
+}
+
+.episode__information-audio {
+	margin: 1rem 0;
+	width: 100%;
+}
