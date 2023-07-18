@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import PodcastsList from './components/PodcastsList/PodcastsList';
-import Podcast from './components/Podcast';
+import Podcast from './components/Podcast/Podcast';
 import Episode from './components/Episode';
 import Prefetch from './components/Prefetch';
 import './App.css';

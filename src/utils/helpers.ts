@@ -9,3 +9,13 @@ export const makeSlug = (text: string) => {
 		.replace(/[A-Z]/g, '-' + '$&'.toLowerCase())
 		.replace(/ /g, '-');
 };
+
+export const msToTime = (duration: number): string => {
+	let seconds = Math.floor((duration / 1000) % 60);
+	let minutes = Math.floor((duration / (1000 * 60)) % 60);
+
+	let minutesText = minutes < 10 ? '0' + minutes : minutes;
+	let secondsText = seconds < 10 ? '0' + seconds : seconds;
+
+	return minutesText + ':' + secondsText;
+};

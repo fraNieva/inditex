@@ -50,7 +50,7 @@ const Episode = () => {
 			<>
 				<aside>
 					<Link to={`/podcast/${id}`}>
-						<img src={podcast?.['im:image'][0].label} alt={podcast?.['im:name'].label} />
+						<img src={podcast?.['im:image'].at(-1)?.label} alt={podcast?.['im:name'].label} />
 						<p>{podcast?.['im:name'].label}</p>
 						<p>by {podcast?.['im:artist'].label}</p>
 						<p>Description</p>

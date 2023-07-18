@@ -1,20 +1,43 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { msToTime } from '../utils/helpers';
 
 interface EpisodeItemProps {
 	id: number;
 	podcastId: string;
 	trackName?: string;
 	episodeSlug?: string;
+	duration?: number;
+	releaseDate?: string;
 }
 
-const EpisodeItem = ({ id, podcastId, trackName, episodeSlug }: EpisodeItemProps) => {
+const EpisodeItem = ({
+	id,
+	podcastId,
+	trackName,
+	episodeSlug,
+	duration = 0,
+	releaseDate = '',
+}: EpisodeItemProps) => {
+	const trackDateCreation = useMemo(
+		() => new Date(releaseDate).toLocaleDateString(),
+		[releaseDate]
+	);
+
 	return (
-		<p>
-			<Link to={`/podcast/${podcastId}/episode/${episodeSlug}`}>
-				<span>{trackName}</span>
-			</Link>
-		</p>
+		<tr className="episode__row">
+			<td className="episode__name">
+				<Link to={`/podcast/${podcastId}/episode/${episodeSlug}`}>
+					<span>{trackName}</span>
+				</Link>
+			</td>
+			<td className="episode__creation-date">
+				<span>{trackDateCreation}</span>
+			</td>
+			<td className="episode__duration">
+				<span>{msToTime(duration)}</span>
+			</td>
+		</tr>
 	);
 };
 

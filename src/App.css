@@ -2,6 +2,8 @@ html {
 	--main: #466c9c;
 	--white: #ffffff;
 	--font-primary: #111;
+	--shadow-color: #bbb;
+	--border-color: #bbb;
 }
 
 * > * {
