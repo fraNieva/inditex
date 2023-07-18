@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { EpisodeProps, useGetEpisodesQuery } from '../app/services/episodes';
-import { selectPodcastById } from '../app/services/podcasts';
+import { selectAllPodcasts } from '../app/services/podcasts';
 import { useSelector } from 'react-redux';
 
 const Episode = () => {
 	const { id, episodeId } = useParams();
+	const [podcastId, setPodcastId] = useState<string | undefined>(undefined);
+
+	const podcastsList = useSelector((state: any) => selectAllPodcasts(state));
+	const podcast = podcastsList.find((podcast) => podcast.slug === id);
+
+	const podcastIdNumber = typeof podcast?.id === 'string' ? podcast.id : '';
 	const { data, isLoading, isSuccess, isError, error } = useGetEpisodesQuery({
-		id,
+		id: podcastId,
 	});
-	const podcast = useSelector((state: any) => selectPodcastById(state, id || ''));
+
+	useEffect(() => {
+		if (podcastIdNumber) setPodcastId(podcastIdNumber);
+	}, [podcastIdNumber]);
+
 	let content = <></>;
 
 	if (isLoading) content = <p>Loading...</p>;
@@ -28,9 +38,13 @@ const Episode = () => {
 			content = <div>{error.message}</div>;
 		}
 	}
+	if (isSuccess && episodeId && data) {
+		console.log(episodeId);
+		console.log(data);
+		const episodeIdNumber = data.ids.filter((id) => episodeId === data.entities[id]?.slug)[0];
+		console.log('episodeIdNumber :>> ', episodeIdNumber);
+		const { description, trackName, episodeUrl } = data.entities[episodeIdNumber] as EpisodeProps;
 
-	if (isSuccess && episodeId) {
-		const { description, trackName, episodeUrl } = data.entities[episodeId] as EpisodeProps;
 		content = (
 			<>
 				<aside>
@@ -48,7 +62,13 @@ const Episode = () => {
 						<em>
 							<p>{description}</p>
 						</em>
-						<audio aria-label={`audio:${trackName}`} src={episodeUrl} controls></audio>
+						<audio
+							typeof="audio/mp3"
+							aria-label={`audio:${trackName}`}
+							src={episodeUrl}
+							controls
+							itemRef={`audio:${trackName}`}
+						></audio>
 					</div>
 				</section>
 			</>

@@ -1,6 +1,7 @@
 import { EntityState, createEntityAdapter, createSelector } from '@reduxjs/toolkit';
 import { api } from './api';
 import { RootState } from '../store';
+import { makeSlug } from '../../utils/helpers';
 
 export interface PodcastProps {
 	id: { attributes: { 'im:id': string } } | string;
@@ -9,6 +10,7 @@ export interface PodcastProps {
 	summary: { label: string };
 	'im:image': PodcastImage[];
 	'im:artist': { label: string };
+	slug: string;
 }
 
 type PodcastImage = {
@@ -22,7 +24,9 @@ type PodcastsResponse = {
 	feed: { entry: PodcastProps[] };
 };
 
-const podcastsAdapter = createEntityAdapter<PodcastProps>({});
+const podcastsAdapter = createEntityAdapter<PodcastProps>({
+	selectId: (podcast) => podcast.slug,
+});
 
 const initialState = podcastsAdapter.getInitialState();
 
@@ -34,6 +38,7 @@ export const podcastsApi = api.injectEndpoints({
 			transformResponse: (responseData: PodcastsResponse) => {
 				const loadedPodcasts = responseData.feed.entry.map((podcast: PodcastProps) => {
 					if (typeof podcast.id === 'object') podcast.id = podcast.id.attributes['im:id'];
+					podcast.slug = makeSlug(podcast['im:name'].label);
 					return podcast;
 				});
 				return podcastsAdapter.setAll(initialState, loadedPodcasts);

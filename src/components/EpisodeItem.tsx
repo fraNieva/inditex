@@ -5,12 +5,13 @@ interface EpisodeItemProps {
 	id: number;
 	podcastId: string;
 	trackName?: string;
+	episodeSlug?: string;
 }
 
-const EpisodeItem = ({ id, podcastId, trackName }: EpisodeItemProps) => {
+const EpisodeItem = ({ id, podcastId, trackName, episodeSlug }: EpisodeItemProps) => {
 	return (
 		<p>
-			<Link to={`/podcast/${podcastId}/episode/${id}`}>
+			<Link to={`/podcast/${podcastId}/episode/${episodeSlug}`}>
 				<span>{trackName}</span>
 			</Link>
 		</p>

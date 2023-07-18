@@ -1,16 +1,19 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetEpisodesQuery } from '../app/services/episodes';
-import { selectPodcastById } from '../app/services/podcasts';
+import { selectAllPodcasts } from '../app/services/podcasts';
 import { useSelector } from 'react-redux';
 import EpisodeItem from './EpisodeItem';
 
 const Podcast = () => {
 	const { id } = useParams();
+	const podcastsList = useSelector((state: any) => selectAllPodcasts(state));
+
+	const podcast = podcastsList.find((podcast) => podcast.slug === id);
+
 	const { data, isLoading, isSuccess, isError, error } = useGetEpisodesQuery({
-		id,
+		id: podcast?.id as string,
 	});
-	const podcast = useSelector((state: any) => selectPodcastById(state, id || ''));
 
 	let content = <></>;
 
@@ -51,6 +54,7 @@ const Podcast = () => {
 									id={episodeId.toString()}
 									podcastId={id}
 									trackName={data.entities[episodeId]?.trackName}
+									episodeSlug={data.entities[episodeId]?.slug}
 								/>
 							))}
 					</div>

@@ -1,5 +1,6 @@
 import { EntityState, createEntityAdapter } from '@reduxjs/toolkit';
 import { api } from './api';
+import { makeSlug } from '../../utils/helpers';
 
 export interface EpisodeProps {
 	trackId?: number;
@@ -10,29 +11,34 @@ export interface EpisodeProps {
 	description?: string;
 	episodeUrl?: string;
 	resultsCount?: number;
+	slug?: string;
 }
 
 type GetEpisodesArgs = { id?: string };
 
-type EpisodesResponse = {
+interface EpisodesResponse {
 	resultCount: number;
 	results: EpisodeProps[];
-};
+}
 
-const episodesAdapter = createEntityAdapter<EpisodeProps>({});
+export const episodesAdapter = createEntityAdapter<EpisodeProps>({});
 
 const initialState = episodesAdapter.getInitialState();
 
 export const episodesApi = api.injectEndpoints({
 	endpoints: (build) => ({
 		getEpisodes: build.query<EntityState<EpisodeProps>, GetEpisodesArgs>({
-			query: ({ id }) => ({
-				url: `/lookup?id=${id}&media=podcast&entity=podcastEpisode`,
-			}),
+			query: ({ id }) => {
+				console.log('id >', id);
+				return {
+					url: `/lookup?id=${id}&media=podcast&entity=podcastEpisode`,
+				};
+			},
 			keepUnusedDataFor: 24 * 60 * 60,
 			transformResponse: (responseData: EpisodesResponse) => {
 				let loadedEpisodes = responseData.results.map((episode: EpisodeProps) => {
 					episode.id = episode.trackId;
+					episode.slug = makeSlug(episode.trackName || '');
 					return episode;
 				});
 
