@@ -1,7 +1,8 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom';
-import { RootState } from '../app/store';
+import { RootState } from '../../app/store';
+import './styles.css';
+import Spinner from '../Spinner/Spinner';
 
 const Layout = () => {
 	const isSomeQueryPending = useSelector((state: RootState) =>
@@ -9,11 +10,12 @@ const Layout = () => {
 	);
 	return (
 		<>
-			<header style={{ display: 'flex' }}>
-				<Link to="/">
+			<header className="header">
+				<Link to="/" className="header-logo">
 					<h1>Podcaster</h1>
 				</Link>
-				{isSomeQueryPending && <span>loading...</span>}
+				{isSomeQueryPending && <Spinner />}
+				<Spinner />
 			</header>
 			<div>
 				<Outlet />
