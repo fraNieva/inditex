@@ -1,0 +1,28 @@
+.search__container {
+	text-align: right;
+	width: 100%;
+}
+
+.search__count {
+	background-color: #3976a8;
+	border-radius: 5px;
+	color: white;
+	font-size: large;
+	font-weight: 700;
+	padding: 4px 8px;
+	position: relative;
+	top: 2px;
+}
+
+.search__input {
+	padding: 8px;
+	border-radius: 8px;
+	border-color: var(--border-color);
+	border-style: solid;
+	margin: 0 2rem 0 1rem;
+	width: 20%;
+}
+
+.search__input:focus-visible {
+	border-color: var(--border-color);
+}
