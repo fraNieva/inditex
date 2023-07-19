@@ -11,6 +11,11 @@ export const makeSlug = (text: string) => {
 		.replace(/\?/g, '-');
 };
 
+/**
+ * Converts milliseconds to a formatted time string.
+ * @param duration - The duration in milliseconds.
+ * @returns The formatted time string (MM:SS).
+ */
 export const msToTime = (duration: number): string => {
 	let seconds = Math.floor((duration / 1000) % 60);
 	let minutes = Math.floor((duration / (1000 * 60)) % 60);
