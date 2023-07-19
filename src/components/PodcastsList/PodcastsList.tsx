@@ -4,12 +4,13 @@ import PodcastCard from '../PodcastCard/PodcastCard';
 import './styles.css';
 import Search from '../Search/Search';
 import { EntityId } from '@reduxjs/toolkit';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 const PodcastsList = () => {
 	const [search, setSearch] = useState<string>('');
 	const [idsFiltered, setIdsFiltered] = useState<EntityId[]>([]);
 	const count = search.length > 0 ? idsFiltered.length : 100;
-	const { data, isLoading, isSuccess, isError, error } = useGetPodcastsQuery();
+	const { data, isSuccess, isError, error } = useGetPodcastsQuery();
 
 	useEffect(() => {
 		let podcastsIdsFiltered: EntityId[] = [];
@@ -31,20 +32,13 @@ const PodcastsList = () => {
 
 	let content = <></>;
 
-	if (isLoading) content = <p>Loading...</p>;
-
 	if (isError) {
 		if ('status' in error) {
 			const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
 
-			content = (
-				<div>
-					<div>An error has occurred:</div>
-					<div>{errMsg}</div>
-				</div>
-			);
+			content = <ErrorMessage errorMsg={errMsg} />;
 		} else {
-			content = <div>{error.message}</div>;
+			content = <ErrorMessage errorMsg={error.message || ''} />;
 		}
 	}
 

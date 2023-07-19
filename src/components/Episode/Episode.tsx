@@ -6,17 +6,19 @@ import { useSelector } from 'react-redux';
 import parse from 'html-react-parser';
 import PodcastDetail from '../PodcastDetail/PodcastDetail';
 import './styles.css';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import { RootState } from '../../app/store';
 
 const Episode: React.FC = () => {
 	const { id, episodeId } = useParams();
 	const [podcastId, setPodcastId] = useState<string | undefined>(undefined);
 
-	const podcastsList = useSelector((state: any) => selectAllPodcasts(state));
+	const podcastsList = useSelector((state: RootState) => selectAllPodcasts(state));
 	const podcast = podcastsList.find((podcast) => podcast.slug === id);
 
 	const podcastIdNumber = typeof podcast?.id === 'string' ? podcast.id : '';
 
-	const { data, isLoading, isSuccess, isError, error } = useGetEpisodesQuery({
+	const { data, isSuccess, isError, error } = useGetEpisodesQuery({
 		id: podcastId,
 	});
 
@@ -26,22 +28,16 @@ const Episode: React.FC = () => {
 
 	let content = <></>;
 
-	if (isLoading) content = <p>Loading...</p>;
-
 	if (isError) {
 		if ('status' in error) {
 			const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
 
-			content = (
-				<div>
-					<div>An error has occurred:</div>
-					<div>{errMsg}</div>
-				</div>
-			);
+			content = content = <ErrorMessage errorMsg={errMsg} />;
 		} else {
-			content = <div>{error.message}</div>;
+			content = <ErrorMessage errorMsg={error.message || ''} />;
 		}
 	}
+
 	if (isSuccess && episodeId && data && podcast && id) {
 		const episodeIdNumber = data.ids.filter((id) => episodeId === data.entities[id]?.slug)[0];
 		const { description, trackName, episodeUrl } = data.entities[episodeIdNumber] as EpisodeProps;

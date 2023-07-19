@@ -6,32 +6,26 @@ import { useSelector } from 'react-redux';
 import EpisodeItem from '../EpisodeItem/EpisodeItem';
 import './styles.css';
 import PodcastDetail from '../PodcastDetail/PodcastDetail';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 const Podcast = () => {
 	const { id } = useParams();
 	const podcastsList = useSelector((state: any) => selectAllPodcasts(state));
 	const podcast = podcastsList.find((podcast) => podcast.slug === id);
 
-	const { data, isLoading, isSuccess, isError, error } = useGetEpisodesQuery({
+	const { data, isSuccess, isError, error } = useGetEpisodesQuery({
 		id: podcast?.id as string,
 	});
 
 	let content = <></>;
 
-	if (isLoading) content = <p>Loading...</p>;
-
 	if (isError) {
 		if ('status' in error) {
 			const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
 
-			content = (
-				<div>
-					<div>An error has occurred:</div>
-					<div>{errMsg}</div>
-				</div>
-			);
+			content = <ErrorMessage errorMsg={errMsg} />;
 		} else {
-			content = <div>{error.message}</div>;
+			content = <ErrorMessage errorMsg={error.message || ''} />;
 		}
 	}
 
@@ -80,6 +74,7 @@ const Podcast = () => {
 			</div>
 		);
 	}
+
 	return content;
 };
 

@@ -1,0 +1,13 @@
+.error__container {
+	padding: 1rem 3rem;
+}
+
+.error__label {
+	color: red;
+	font-weight: 600;
+}
+
+.error__message {
+	font-weight: 400;
+	margin-left: 4px;
+}
