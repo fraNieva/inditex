@@ -7,7 +7,8 @@ export const makeSlug = (text: string) => {
 	return text
 		.toLowerCase()
 		.replace(/[A-Z]/g, '-' + '$&'.toLowerCase())
-		.replace(/ /g, '-');
+		.replace(/ /g, '-')
+		.replace(/\?/g, '-');
 };
 
 export const msToTime = (duration: number): string => {
