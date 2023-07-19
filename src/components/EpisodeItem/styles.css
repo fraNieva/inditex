@@ -1,0 +1,29 @@
+.podcast-episodes__table .episode__row {
+	border-bottom: 1px solid var(--border-color);
+}
+
+.podcast-episodes__table tr td {
+	padding: 0.5rem 0;
+}
+
+.podcast-episodes__table .episode__name {
+	width: 70%;
+}
+
+.podcast-episodes__table .episode__duration {
+	text-align: center;
+}
+
+.podcast-episodes__table .creation-date,
+.podcast-episodes__table .episode__duration {
+	width: 15%;
+}
+
+.podcast-episodes__table .episode__name > a {
+	color: var(--main);
+	text-decoration: none;
+}
+
+.podcast-episodes__table tr:nth-child(even) {
+	background-color: rgb(249, 249, 249);
+}
