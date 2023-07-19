@@ -7,7 +7,7 @@ import parse from 'html-react-parser';
 import PodcastDetail from '../PodcastDetail/PodcastDetail';
 import './styles.css';
 
-const Episode = () => {
+const Episode: React.FC = () => {
 	const { id, episodeId } = useParams();
 	const [podcastId, setPodcastId] = useState<string | undefined>(undefined);
 
@@ -15,6 +15,7 @@ const Episode = () => {
 	const podcast = podcastsList.find((podcast) => podcast.slug === id);
 
 	const podcastIdNumber = typeof podcast?.id === 'string' ? podcast.id : '';
+
 	const { data, isLoading, isSuccess, isError, error } = useGetEpisodesQuery({
 		id: podcastId,
 	});

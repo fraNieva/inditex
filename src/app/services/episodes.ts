@@ -30,10 +30,11 @@ export const episodesApi = api.injectEndpoints({
 	endpoints: (build) => ({
 		getEpisodes: build.query<EntityState<EpisodeProps>, GetEpisodesArgs>({
 			query: ({ id }) => {
-				console.log('id >', id);
-				return {
-					url: `/lookup?id=${id}&media=podcast&entity=podcastEpisode`,
-				};
+				if (id)
+					return {
+						url: `/lookup?id=${id}&media=podcast&entity=podcastEpisode`,
+					};
+				return { url: '' };
 			},
 			keepUnusedDataFor: 24 * 60 * 60,
 			transformResponse: (responseData: EpisodesResponse) => {

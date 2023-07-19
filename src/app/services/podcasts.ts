@@ -24,9 +24,7 @@ type PodcastsResponse = {
 	feed: { entry: PodcastProps[] };
 };
 
-const podcastsAdapter = createEntityAdapter<PodcastProps>({
-	selectId: (podcast) => podcast.slug,
-});
+const podcastsAdapter = createEntityAdapter<PodcastProps>({});
 
 const initialState = podcastsAdapter.getInitialState();
 
