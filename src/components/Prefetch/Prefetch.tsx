@@ -1,5 +1,5 @@
-import { store } from '../app/store';
-import { podcastsApi } from '../app/services/podcasts';
+import { store } from '../../app/store';
+import { podcastsApi } from '../../app/services/podcasts';
 import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 

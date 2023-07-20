@@ -3,7 +3,7 @@ import Layout from './components/Layout/Layout';
 import PodcastsList from './components/PodcastsList/PodcastsList';
 import Podcast from './components/Podcast/Podcast';
 import Episode from './components/Episode/Episode';
-import Prefetch from './components/Prefetch';
+import Prefetch from './components/Prefetch/Prefetch';
 import './App.css';
 
 function App() {
