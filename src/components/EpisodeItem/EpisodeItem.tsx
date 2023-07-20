@@ -27,16 +27,16 @@ const EpisodeItem = ({
 
 	return (
 		<tr className="episode__row">
-			<td className="episode__name">
+			<td className="episode__name" data-testid="episode__name">
 				<Link to={`/podcast/${podcastId}/episode/${episodeSlug}`}>
 					<span>{trackName}</span>
 				</Link>
 			</td>
-			<td className="episode__creation-date">
+			<td className="episode__creation-date" data-testid="episode__date">
 				<span>{trackDateCreation}</span>
 			</td>
 			<td className="episode__duration">
-				<span>{durationInMMSS}</span>
+				<span data-testid="episode__duration">{durationInMMSS}</span>
 			</td>
 		</tr>
 	);
