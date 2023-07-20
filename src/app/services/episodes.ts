@@ -13,6 +13,7 @@ export interface EpisodeProps {
 	resultsCount?: number;
 	slug?: string;
 	releaseDate?: string;
+	wrapperType?: string;
 }
 
 type GetEpisodesArgs = { id?: string };

@@ -4,7 +4,6 @@ import { msToTime } from '../../utils/helpers';
 import './styles.css';
 
 interface EpisodeItemProps {
-	id: number;
 	podcastId: string;
 	trackName?: string;
 	episodeSlug?: string;
@@ -13,7 +12,6 @@ interface EpisodeItemProps {
 }
 
 const EpisodeItem = ({
-	id,
 	podcastId,
 	trackName,
 	episodeSlug,
@@ -24,6 +22,8 @@ const EpisodeItem = ({
 		() => new Date(releaseDate).toLocaleDateString(),
 		[releaseDate]
 	);
+
+	const durationInMMSS = useMemo(() => msToTime(duration), [duration]);
 
 	return (
 		<tr className="episode__row">
@@ -36,7 +36,7 @@ const EpisodeItem = ({
 				<span>{trackDateCreation}</span>
 			</td>
 			<td className="episode__duration">
-				<span>{msToTime(duration)}</span>
+				<span>{durationInMMSS}</span>
 			</td>
 		</tr>
 	);

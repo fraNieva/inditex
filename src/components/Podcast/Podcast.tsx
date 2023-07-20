@@ -56,17 +56,18 @@ const Podcast = () => {
 							</thead>
 							<tbody>
 								{id &&
-									Object.keys(data.entities).map((episodeId: any) => (
-										<EpisodeItem
-											key={episodeId}
-											id={episodeId.toString()}
-											podcastId={id}
-											trackName={data.entities[episodeId]?.trackName}
-											episodeSlug={data.entities[episodeId]?.slug}
-											duration={data.entities[episodeId]?.trackTimeMillis}
-											releaseDate={data.entities[episodeId]?.releaseDate}
-										/>
-									))}
+									data.ids
+										.filter((id) => typeof id === 'number')
+										.map((episodeId: any) => (
+											<EpisodeItem
+												key={episodeId}
+												podcastId={id}
+												trackName={data.entities[episodeId]?.trackName}
+												episodeSlug={data.entities[episodeId]?.slug}
+												duration={data.entities[episodeId]?.trackTimeMillis}
+												releaseDate={data.entities[episodeId]?.releaseDate}
+											/>
+										))}
 							</tbody>
 						</table>
 					</div>
