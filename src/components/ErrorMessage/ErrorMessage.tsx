@@ -9,7 +9,9 @@ const ErrorMessage = ({ errorMsg }: ErrorMessageProps) => {
 		<div className="error__container">
 			<p className="error__label">
 				An error has occurred:
-				<span className="error__message">{errorMsg}</span>
+				<span data-testid="error__message" className="error__message">
+					{errorMsg}
+				</span>
 			</p>
 		</div>
 	);
