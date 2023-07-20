@@ -13,7 +13,7 @@ const PodcastDetail: React.FC<PodcastDetailProps> = ({ podcast, id }) => {
 		<aside className="podcast-aside__detail">
 			<Link to={`/podcast/${id}`}>
 				<img
-					src={podcast?.['im:image'].at(-1)?.label}
+					src={podcast?.['im:image'][2]?.label}
 					alt={podcast?.['im:name'].label}
 					className="podcast-aside__image"
 				/>
